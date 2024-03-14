@@ -4,8 +4,7 @@ type HangmanWordProps = {
     wordToGuess: string
 }
 const HangmanWord = ({guessedLetters, wordToGuess}:HangmanWordProps) => {
-    const word = "test";
-  
+
     return (
         <div style={{
             display: "flex",
