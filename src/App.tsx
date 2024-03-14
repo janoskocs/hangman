@@ -5,7 +5,7 @@ import HangmanWord from "./components/HangmanWord";
 import Keyboard from "./components/Keyboard";
 const App = () => {
 
-  const [wordToGuess, setWordToGuess] = useState<string>(() => {
+  const [wordToGuess] = useState<string>(() => {
     return words[Math.floor(Math.random() * words.length)]
   })
   const [guessedLetters, setGuessedLetters] = useState<string[]>([])
@@ -37,22 +37,39 @@ const App = () => {
     }
   }, [guessedLetters])
 
+
   return (
-    <div style={{ maxWidth: "800px", display: "flex", flexDirection: "column", alignItems: "center", margin: "0 auto", gap: "2rem" }}>
+    <div
+      style={{
+        maxWidth: "800px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "0 auto",
+        gap: "2rem"
+      }}>
+
       <p>{isWinner && "You won! Refresh to try again!"}</p>
       <p>{isLoser && "You lost! Refresh to try again!"}</p>
 
-      <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
-      <HangmanWord reveal={isLoser} guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
+      <HangmanDrawing
+        numberOfGuesses={incorrectLetters.length}
+      />
+
+      <HangmanWord
+        reveal={isLoser}
+        guessedLetters={guessedLetters}
+        wordToGuess={wordToGuess}
+      />
+
       <div style={{ alignSelf: "stretch" }}>
         <Keyboard
           disabled={isLoser || isWinner}
-          activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))} inactiveLetters={incorrectLetters}
-          addGuessedLetter={addGuessedLetter} />
-
+          activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))}
+          inactiveLetters={incorrectLetters}
+          addGuessedLetter={addGuessedLetter}
+        />
       </div>
-
-
     </div>
   )
 }
